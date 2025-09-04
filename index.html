@@ -15,10 +15,23 @@
         .search-container {
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://placehold.co/1600x900') center/cover;
         }
+        .accordion-header {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .accordion-content {
+            display: none;
+            overflow: hidden;
+            transition: all 0.3s ease-in-out;
+        }
+        .accordion-content.open {
+            display: block;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
-    <!-- Header -->
     <header class="bg-indigo-900 text-white shadow-md">
         <div class="container mx-auto px-4 py-6">
             <div class="flex justify-between items-center">
@@ -27,24 +40,29 @@
                     <h1 class="text-2xl font-bold">MUTUAL INDUCTION</h1>
                 </div>
                 <nav>
-                    <ul class="flex space-x-6">
+                    <ul class="flex space-x-6 items-center">
                         <li><a href="#jobs" class="hover:text-yellow-400 transition">Opportunity</a></li>
+                        <li><a href="#resources" class="hover:text-yellow-400 transition">Resources</a></li>
                         <li><a href="#about" class="hover:text-yellow-400 transition">About</a></li>
+                        <li>
+                            <a href="mailto:22eeea26forever@gmail.com" 
+                            class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">
+                                Contact Us
+                            </a>
+                        </li>
                     </ul>
                 </nav>
-
             </div>
         </div>
     </header>
     
-<section class="search-container text-white py-20" style="background-image: url('Bg1.jpg'); background-size: cover; background-position: center;">
-    <div class="container mx-auto px-4 text-center">
-        <h2 class="text-4xl font-bold mb-6 text-black">EEEA'26 MUTUAL INDUCTION</h2>
-        <p class="text-xl mb-8 max-w-2xl mx-auto text-gray-800">Induce your perfect opportunity from Electrical & Electronics Engineering</p>
-    </div>
-</section>
+    <section class="search-container text-white py-20" style="background-image: url('Bg1.jpg'); background-size: cover; background-position: center;">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-6 text-black">EEEA'26 MUTUAL INDUCTION</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto text-gray-800">Induce your perfect opportunity from Electrical & Electronics Engineering</p>
+        </div>
+    </section>
 
-    <!-- Hero Section with APJ Quote -->
     <section class="bg-indigo-800 text-white py-16">
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row items-center">
@@ -61,116 +79,73 @@
             </div>
         </div>
     </section>
-<!-- Announcements Section -->
-<section id="announcements" class="my-10 p-6 bg-white rounded-lg shadow-md">
-  <h2 class="text-2xl font-bold mb-4 text-gray-800">📢 Announcements</h2>
-
-  <!-- Tabs -->
-  <div class="flex border-b mb-4">
-    <button id="tab-active" class="px-4 py-2 text-indigo-600 border-b-2 border-indigo-600 font-medium">
-      Active
-    </button>
-    <button id="tab-closed" class="px-4 py-2 text-gray-600 hover:text-indigo-600">
-      Closed
-    </button>
-  </div>
-
-  <!-- Active Announcements Table -->
-  <div id="active-announcements">
-    <table class="w-full border-collapse">
-      <thead>
-        <tr class="bg-gray-100 text-sm text-gray-700">
-          <th class="p-2 text-left">Title</th>
-          <th class="p-2">Start Date</th>
-          <th class="p-2">End Date</th>
-          <th class="p-2">Link</th>
-        </tr>
-      </thead>
-      <tbody id="active-body"></tbody>
-    </table>
-  </div>
-
-  <!-- Closed Announcements Table -->
-  <div id="closed-announcements" class="hidden">
-    <table class="w-full border-collapse">
-      <thead>
-        <tr class="bg-gray-100 text-sm text-gray-700">
-          <th class="p-2 text-left">Title</th>
-          <th class="p-2">Start Date</th>
-          <th class="p-2">End Date</th>
-          <th class="p-2">Link</th>
-        </tr>
-      </thead>
-      <tbody id="closed-body"></tbody>
-    </table>
-  </div>
-</section>
-
-<script>
-  const announcements = [
-    { title: "GATE 2026 Registration", startDate: "2025-08-28", endDate: "2025-09-28", link: "https://goaps.iitg.ac.in" },
-  ];
-
-  const today = new Date();
-  const activeBody = document.getElementById("active-body");
-  const closedBody = document.getElementById("closed-body");
-
-  announcements.forEach(ann => {
-    const end = new Date(ann.endDate);
-    const isActive = end >= today;
-
-    const row = document.createElement("tr");
-    row.className = "border-b text-sm hover:bg-gray-50";
-    row.innerHTML = `
-      <td class="p-2 font-medium text-gray-800">${ann.title}</td>
-      <th class="p-2">${ann.startDate}</th>
-      <th class="p-2">${ann.endDate}</th>
-      <th class="p-2"><a href="${ann.link}" target="_blank" class="text-indigo-600 hover:underline">Visit the Offical Website</a></th>
-    `;
-
-    if (isActive) {
-      activeBody.appendChild(row);
-    } else {
-      closedBody.appendChild(row);
-    }
-  });
-
-  // Tab switching
-  const tabActive = document.getElementById("tab-active");
-  const tabClosed = document.getElementById("tab-closed");
-  const activeDiv = document.getElementById("active-announcements");
-  const closedDiv = document.getElementById("closed-announcements");
-
-  tabActive.addEventListener("click", () => {
-    activeDiv.classList.remove("hidden");
-    closedDiv.classList.add("hidden");
-    tabActive.classList.add("text-indigo-600", "border-b-2", "border-indigo-600");
-    tabClosed.classList.remove("text-indigo-600", "border-b-2", "border-indigo-600");
-  });
-
-  tabClosed.addEventListener("click", () => {
-    closedDiv.classList.remove("hidden");
-    activeDiv.classList.add("hidden");
-    tabClosed.classList.add("text-indigo-600", "border-b-2", "border-indigo-600");
-    tabActive.classList.remove("text-indigo-600", "border-b-2", "border-indigo-600");
-  });
-</script>
-
     
-    <!-- Featured Jobs Section -->
+    <section id="announcements" class="my-10 p-6 bg-white rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold mb-4 text-gray-800">📢 Announcements</h2>
+        <div class="flex border-b mb-4">
+            <button id="tab-active" class="px-4 py-2 text-indigo-600 border-b-2 border-indigo-600 font-medium">Active</button>
+            <button id="tab-closed" class="px-4 py-2 text-gray-600 hover:text-indigo-600">Closed</button>
+        </div>
+        <div id="active-announcements">
+            <div class="h-64 overflow-y-auto border rounded-lg">
+                <table class="w-full border-collapse text-sm">
+                    <thead>
+                        <tr class="bg-gray-100 text-gray-700">
+                            <th class="p-2 text-left">Title</th>
+                            <th class="p-2">Field</th>
+                            <th class="p-2">Start Date</th>
+                            <th class="p-2">End Date</th>
+                            <th class="p-2">Link</th>
+                        </tr>
+                    </thead>
+                    <tbody id="active-body"></tbody>
+                </table>
+            </div>
+        </div>
+        <div id="closed-announcements" class="hidden">
+            <div class="h-64 overflow-y-auto border rounded-lg">
+                <table class="w-full border-collapse text-sm">
+                    <thead>
+                        <tr class="bg-gray-100 text-gray-700">
+                            <th class="p-2 text-left">Title</th>
+                            <th class="p-2">Field</th>
+                            <th class="p-2">Start Date</th>
+                            <th class="p-2">End Date</th>
+                            <th class="p-2">Link</th>
+                        </tr>
+                    </thead>
+                    <tbody id="closed-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="resources" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden max-w-4xl mx-auto">
+                <div class="accordion-header p-6 bg-indigo-900 text-white hover:bg-indigo-800 transition-colors duration-300" onclick="toggleResources()">
+                    <h2 class="text-2xl font-bold">Placement Preparation: Online Resources</h2>
+                    <i id="accordion-icon" class="fas fa-chevron-down text-xl"></i>
+                </div>
+                <div id="resources-content" class="accordion-content">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6" id="online-resources-grid">
+                        </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
     <section id="jobs" class="py-16 bg-white">
         <div class="container mx-auto px-4">
             <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Current Opportunities</h2>
-            
             <div class="mb-8 flex flex-wrap justify-center gap-4">
                 <button class="filter-btn px-4 py-2 rounded-full bg-indigo-900 text-white" data-filter="all">All Opportunities</button>
                 <button class="filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300" data-filter="job">Job Domains</button>
+                <button class="filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300" data-filter="global">Global Firms</button>
                 <button class="filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300" data-filter="KPSU">Kerala Govt. PSUs</button>
                 <button class="filter-btn px-4 py-2 rounded-full bg-gray-200 hover:bg-gray-300" data-filter="competitive_exams">Competitive Exams</button>
             </div>
-
-            <div id="job-listings" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                </div>
+            <div id="job-listings" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
         </div>
     </section>
 
@@ -182,7 +157,7 @@
                 </div>
                 <div class="md:w-1/2 md:pl-12">
                     <h2 class="text-3xl font-bold mb-6 text-gray-800">About Mutual Induction</h2>
-                    <p class="mb-4 text-gray-700">Mutual Induction is a dedicated platform build by EEEA'26 students for a mission on connecting talented Electrical and Electronics Engineers with top opportunities in the industry.</p>
+                    <p class="mb-4 text-gray-700">Mutual Induction is a dedicated platform built by EEEA'26 students for a mission on connecting talented Electrical and Electronics Engineers with top opportunities in the industry.</p>
                     <p class="mb-4 text-gray-700">Our mission is to induce meaningful resources that spark innovation and career growth from the EEE sector.</p>
                     <ul class="space-y-2 text-gray-700">
                         <li class="flex items-center">
@@ -202,8 +177,7 @@
 
     <section class="py-16 bg-indigo-900 text-white">
         <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center"></div>
         </div>
     </section>
 
@@ -225,8 +199,9 @@
                     <h3 class="text-white text-lg font-semibold mb-4">Categories</h3>
                     <ul class="space-y-2">
                         <li><a href="#" class="hover:text-white transition" data-filter="job">Job Domains</a></li>
+                        <li><a href="#" class="hover:text-white transition" data-filter="global">Global Firms</a></li>
                         <li><a href="#" class="hover:text-white transition" data-filter="KPSU">Kerala Govt. PSUs</a></li>
-                        <li><a href="#" class="hover:text-white transition" data-filter="telecom">Competitive Exams</a></li>
+                        <li><a href="#" class="hover:text-white transition" data-filter="competitive_exams">Competitive Exams</a></li>
                     </ul>
                 </div>
                 <div>
@@ -244,232 +219,201 @@
     </footer>
 
     <script>
-const jobs = [
-  {
-    id: 1,
-    title: "Power Engineering",
-    category: "job",
-    description: "Focuses on generation, transmission, and distribution of electrical energy. Opportunities in renewable energy, smart grids, power plants, and sustainable energy systems."
-  },
-  {
-    id: 2,
-    title: "Electronics Engineering & Embedded Systems",
-    category: "job",
-    description: "Covers circuit design, VLSI, embedded controllers, and IoT devices. Roles span across consumer electronics, defense, automotive, and semiconductor industries."
-  },
-  {
-    id: 3,
-    title: "Control Systems",
-    category: "job",
-    description: "Application of feedback and automation in industries, aerospace, robotics, and autonomous systems. Includes PID, advanced control, and real-time implementation."
-  },
-  {
-    id: 4,
-    title: "Telecommunication",
-    category: "job",
-    description: "Work in wireless, fiber optics, satellite communication, 5G/6G, and secure networking. Opportunities in telecom operators, R&D centers, and defense."
-  },
-  {
-    id: 5,
-    title: "Instrumentation",
-    category: "job",
-    description: "Focus on sensors, measurement, and process control. Widely applied in oil & gas, healthcare devices, manufacturing plants, and industrial testing."
-  },
-  {
-    id: 6,
-    title: "Signal Processing",
-    category: "job",
-    description: "Includes digital signal processing, image/video analysis, AI in audio, biomedical signals, and communications. Applied in radar, medical imaging, and multimedia."
-  },
-  {
-    id: 7,
-    title: "Electric Vehicles",
-    category: "job",
-    description: "Covers EV design, battery systems, power electronics, and charging infrastructure. Strong demand in automobile, R&D, and startup ecosystems."
-  },
-  {
-    id: 8,
-    title: "Robotics & Automation",
-    category: "job",
-    description: "Involves industrial robots, autonomous machines, PLC/SCADA, and AI-driven automation. Key roles in manufacturing, space, defense, and research labs."
-  },
-  {
-    id: 9,
-    title: "Aerospace & Avionics",
-    category: "job",
-    description: "Specialization in flight systems, navigation, avionics, and propulsion. Opportunities in ISRO, HAL, private aerospace firms, and defense organizations."
-  },
-  {
-    id: 10,
-    title: "Industrial Automation",
-    category: "job",
-    description: "Focuses on factory automation, process industries, IIoT, and smart manufacturing. Covers PLCs, drives, robotics, and digital twin technologies."
-  },
-  {
-    id: 11,
-    title: "Government & Public Sector Jobs",
-    category: "job",
-    description: "Includes UPSC ESE, SSC JE, PSUs via GATE, and central/state government recruitments. Stable career paths across engineering domains."
-  },
-  {
-    id: 12,
-    title: "GATE 2026",
-    category: "competitive_exams",
-    description: "A national-level exam for postgraduate admissions and PSU recruitment. Tests core engineering knowledge and problem-solving skills."
-  },   
-  {
-    id: 13,
-    title: "Kerala State Electricity Board (KSEB)",
-    description: "Recruitment for Assistant Engineer (Electrical) and Sub Engineer roles. Knowledge of power systems, transmission & distribution, protection, and electrical machines is essential. Recruitment is usually through Kerala PSC exams.",
-    category: "KPSU"
-  },
-  {
-    id: 14,
-    title: "Public Works Department (PWD)",
-    description: "Electrical engineers are hired for electrical installation works in government buildings, street lighting, and infrastructure projects. Recruitment is mainly via Kerala PSC.",
-    category: "KPSU"
-  },
-  {
-    id: 15,
-    title: "Harbour Engineering Department (HED)",
-    description: "Involves electrical works in marine and harbor structures, including automation, lighting, and power supply systems. Recruitment through Kerala PSC.",
-    category: "KPSU"
-  },
-  {
-    id: 16,
-    title: "Kerala Water Authority (KWA)",
-    description: "Electrical engineers work in pumping stations, motors, water treatment plants, and automation of distribution systems. Selection via Kerala PSC.",
-    category: "KPSU"
-  },
-  {
-    id: 17,
-    title: "Plantation Corporation of Kerala",
-    description: "Hires electrical engineers for maintaining electrical machinery, estate automation, and renewable energy projects within plantations.",
-    category: "KPSU"
-  },
-  {
-    id: 18,
-    title: "Kerala Tourism Development Corporation (KTDC)",
-    description: "Limited recruitment for electrical maintenance in resorts, hotels, and tourism facilities. Engineers with facility management background are preferred.",
-    category: "KPSU"
-  },
-  {
-    id: 19,
-    title: "Travancore Titanium Products Ltd (TTPL)",
-    description: "Core PSU in Kerala employing electrical engineers for process industries, high-voltage substations, and automation. Recruitment via Kerala PSC or direct notification.",
-    category: "KPSU"
-  },
-  {
-    id: 20,
-    title: "Electrical Inspectorate Kerala",
-    description: "Electrical engineers inspect, certify, and ensure safety compliance of electrical installations across Kerala. Recruitment is via Kerala PSC.",
-    category: "KPSU"
-  },
-  {
-    id: 21,
-    title: "Kerala State Cooperative Bank",
-    description: "Limited opportunities for electrical engineers in facility management, UPS, and electrical infrastructure of bank buildings.",
-    category: "KPSU"
-  },
-  {
-    id: 22,
-    title: "Kerala Cashew Development Corporation",
-    description: "Employs electrical engineers in cashew processing factories for machinery maintenance, power supply, and industrial automation.",
-    category: "KPSU"
-  },
-  {
-    id: 23,
-    title: "United Electrical Industries Ltd (UNILEC)",
-    description: "Manufactures energy meters, switchgear, and other electrical products. Electrical engineers can work in R&D, testing, and production departments.",
-    category: "KPSU"
-  },
-  {
-    id: 24,
-    title: "Universities in Kerala",
-    description: "Universities such as CUSAT, KTU, and Kerala University recruit electrical engineers as Assistant Professors or Technical Officers. Recruitment via Kerala PSC, UGC-NET, or direct applications.",
-    category: "KPSU"
-  },
-];
+        const jobs = [
+            { id: 1, title: "Power Engineering", category: "job", description: "Focuses on generation, transmission, and distribution of electrical energy. Opportunities in renewable energy, smart grids, power plants, and sustainable energy systems." },
+            { id: 2, title: "Electronics Engineering & Embedded Systems", category: "job", description: "Covers circuit design, VLSI, embedded controllers, and IoT devices. Roles span across consumer electronics, defense, automotive, and semiconductor industries." },
+            { id: 3, title: "Control Systems", category: "job", description: "Application of feedback and automation in industries, aerospace, robotics, and autonomous systems. Includes PID, advanced control, and real-time implementation." },
+            { id: 4, title: "Telecommunication", category: "job", description: "Work in wireless, fiber optics, satellite communication, 5G/6G, and secure networking. Opportunities in telecom operators, R&D centers, and defense." },
+            { id: 5, title: "Instrumentation", category: "job", description: "Focus on sensors, measurement, and process control. Widely applied in oil & gas, healthcare devices, manufacturing plants, and industrial testing." },
+            { id: 6, title: "Signal Processing", category: "job", description: "Includes digital signal processing, image/video analysis, AI in audio, biomedical signals, and communications. Applied in radar, medical imaging, and multimedia." },
+            { id: 7, title: "Electric Vehicles", category: "job", description: "Covers EV design, battery systems, power electronics, and charging infrastructure. Strong demand in automobile, R&D, and startup ecosystems." },
+            { id: 8, title: "Robotics & Automation", category: "job", description: "Involves industrial robots, autonomous machines, PLC/SCADA, and AI-driven automation. Key roles in manufacturing, space, defense, and research labs." },
+            { id: 9, title: "Aerospace & Avionics", category: "job", description: "Specialization in flight systems, navigation, avionics, and propulsion. Opportunities in ISRO, HAL, private aerospace firms, and defense organizations." },
+            { id: 10, title: "Industrial Automation", category: "job", description: "Focuses on factory automation, process industries, IIoT, and smart manufacturing. Covers PLCs, drives, robotics, and digital twin technologies." },
+            { id: 11, title: "Government & Public Sector Jobs", category: "job", description: "Includes UPSC ESE, SSC JE, PSUs via GATE, and central/state government recruitments. Stable career paths across engineering domains." },
+            { id: 12, title: "GATE", category: "competitive_exams", description: "A national-level exam for postgraduate admissions and PSU recruitment. Tests core engineering knowledge and problem-solving skills." }, 
+            { id: 13, title: "Kerala State Electricity Board (KSEB)", description: "Recruitment for Assistant Engineer (Electrical) and Sub Engineer roles. Knowledge of power systems, transmission & distribution, protection, and electrical machines is essential. Recruitment is usually through Kerala PSC exams.", category: "KPSU" },
+            { id: 14, title: "Public Works Department (PWD)", description: "Electrical engineers are hired for electrical installation works in government buildings, street lighting, and infrastructure projects. Recruitment is mainly via Kerala PSC.", category: "KPSU" },
+            { id: 15, title: "Harbour Engineering Department (HED)", description: "Involves electrical works in marine and harbor structures, including automation, lighting, and power supply systems. Recruitment through Kerala PSC.", category: "KPSU" },
+            { id: 16, title: "Kerala Water Authority (KWA)", description: "Electrical engineers work in pumping stations, motors, water treatment plants, and automation of distribution systems. Selection via Kerala PSC.", category: "KPSU" },
+            { id: 17, title: "Plantation Corporation of Kerala", description: "Hires electrical engineers for maintaining electrical machinery, estate automation, and renewable energy projects within plantations.", category: "KPSU" },
+            { id: 18, title: "Kerala Tourism Development Corporation (KTDC)", description: "Limited recruitment for electrical maintenance in resorts, hotels, and tourism facilities. Engineers with facility management background are preferred.", category: "KPSU" },
+            { id: 19, title: "Travancore Titanium Products Ltd (TTPL)", description: "Core PSU in Kerala employing electrical engineers for process industries, high-voltage substations, and automation. Recruitment via Kerala PSC or direct notification.", category: "KPSU" },
+            { id: 20, title: "Electrical Inspectorate Kerala", description: "Electrical engineers inspect, certify, and ensure safety compliance of electrical installations across Kerala. Recruitment is via Kerala PSC.", category: "KPSU" },
+            { id: 21, title: "Kerala State Cooperative Bank", description: "Limited opportunities for electrical engineers in facility management, UPS, and electrical infrastructure of bank buildings.", category: "KPSU" },
+            { id: 22, title: "Kerala Cashew Development Corporation", description: "Employs electrical engineers in cashew processing factories for machinery maintenance, power supply, and industrial automation.", category: "KPSU" },
+            { id: 23, title: "United Electrical Industries Ltd (UNILEC)", description: "Manufactures energy meters, switchgear, and other electrical products. Electrical engineers can work in R&D, testing, and production departments.", category: "KPSU" },
+            { id: 24, title: "Universities in Kerala", description: "Universities such as CUSAT, KTU, and Kerala University recruit electrical engineers as Assistant Professors or Technical Officers. Recruitment via Kerala PSC, UGC-NET, or direct applications.", category: "KPSU" },
+            { id: 25, title: "Qaulcomm", description: "Frequently hire for roles in Analog/Mixed Signal design, particularly in Bangalore, India. They seek candidates with a Bachelor's degree and some experience (often 3+ years, but they also have roles for new graduates). Keep an eye on their careers page for entry-level or new grad positions.", website:"https://careers.qualcomm.com/careers", category: "global" },
+            { id: 26, title: "SSC JE", category: "competitive_exams", description: "Staff Selection Commission - Junior Engineer: A national-level exam to recruit Junior Engineers in various government departments and organizations." },
+            { id: 27, title: "Indian Engineering Services", category: "competitive_exams", description: "Conducted by UPSC, this is one of the most prestigious exams for engineers to join government services. It's highly competitive and requires extensive preparation." },
+            { id: 28, title: "State Electricity Boards and Commissions", category: "competitive_exams", description: "Organizations like Kerala State Electricity Board Ltd and other state-level boards regularly hire for positions like Assistant Engineer and Junior Engineer." },
+        ];
 
-// Display jobs on page load
-document.addEventListener('DOMContentLoaded', function() {
-  displayJobs(jobs);
+        const onlineResources = [
+            { name: "HackerRank", description: "A platform for competitive programming, coding challenges, and interviews.", link: "https://www.hackerrank.com" },
+            { name: "LeetCode", description: "Focuses on algorithm and data structure problems, essential for software engineering interviews.", link: "https://leetcode.com" },
+            { name: "CodeChef", description: "A global programming community with monthly contests and learning materials.", link: "https://www.codechef.com" },
+            { name: "Codeforces", description: "Hosts programming competitions and offers a large archive of problems.", link: "https://codeforces.com" },
+            { name: "NeetCode", description: "Curated list of LeetCode problems with video explanations, great for interview prep.", link: "https://neetcode.io" },
+            { name: "PrepInsta", description: "Offers company-specific test pattern and interview questions for various companies.", link: "https://prepinsta.com" },
+            { name: "Face Prep", description: "Provides resources for aptitude, reasoning, and technical interview preparation.", link: "https://faceprep.in" },
+            { name: "IndiaBIX", description: "A popular site for aptitude, verbal ability, and general knowledge questions for competitive exams.", link: "https://www.indiabix.com" },
+            { name: "GeeksforGeeks", description: "A comprehensive platform for computer science concepts, algorithms, and interview questions.", link: "https://www.geeksforgeeks.org" },
+            { name: "Javatpoint", description: "Offers tutorials and interview questions on a wide range of programming languages and technologies.", link: "https://www.javatpoint.com" },
+            { name: "HackerEarth", description: "Hosts hackathons and coding challenges for developers and also provides tutorials.", link: "https://www.hackerearth.com" }
+        ];
 
-  // Add filter functionality
-  const filterButtons = document.querySelectorAll('.filter-btn');
-  filterButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      // Update active button
-      filterButtons.forEach(btn => {
-        btn.classList.remove('bg-indigo-900', 'text-white');
-        btn.classList.add('bg-gray-200', 'hover:bg-gray-300');
-      });
-      this.classList.add('bg-indigo-900', 'text-white');
-      this.classList.remove('bg-gray-200', 'hover:bg-gray-300');
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to populate the new resources grid
+            const populateResourcesGrid = () => {
+                const grid = document.getElementById('online-resources-grid');
+                grid.innerHTML = '';
+                onlineResources.forEach(resource => {
+                    const card = document.createElement('a');
+                    card.href = resource.link;
+                    card.target = "_blank";
+                    card.className = "job-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300 p-6 block";
+                    card.innerHTML = `
+                        <div class="font-bold text-lg text-indigo-900 mb-2">${resource.name}</div>
+                        <p class="text-sm text-gray-600">${resource.description}</p>
+                    `;
+                    grid.appendChild(card);
+                });
+            };
 
-      const filter = this.getAttribute('data-filter');
-      if (filter === 'all') {
-        displayJobs(jobs);
-      } else {
-        const filteredJobs = jobs.filter(job => job.category === filter);
-        displayJobs(filteredJobs);
-      }
-    });
-  });
-});
+            // Initial calls to populate sections
+            populateResourcesGrid();
+            displayJobs(jobs);
 
-// Function to display jobs
-function displayJobs(jobsToDisplay) {
-  const jobsContainer = document.getElementById('job-listings');
-  jobsContainer.innerHTML = '';
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('active-filter', 'bg-indigo-900', 'text-white');
+                        btn.classList.add('bg-gray-200', 'hover:bg-gray-300');
+                    });
+                    this.classList.add('active-filter', 'bg-indigo-900', 'text-white');
+                    this.classList.remove('bg-gray-200', 'hover:bg-gray-300');
 
-  jobsToDisplay.forEach(job => {
-    const jobCard = document.createElement('div');
-    jobCard.className = 'job-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300';
-    
-    let cardHTML = `
-      <div class="p-6">
-        <div class="flex justify-between items-start mb-4">
-          <h3 class="text-xl font-bold text-gray-800">${job.title}</h3>
-          <span class="bg-${getCategoryColor(job.category)}-100 text-${getCategoryColor(job.category)}-800 text-xs px-2 py-1 rounded">
-            ${getCategoryName(job.category)}
-          </span>
-        </div>
-        <p class="text-gray-600 mb-2">${job.description}</p>
-    `;
+                    const filter = this.getAttribute('data-filter');
+                    if (filter === 'all') {
+                        displayJobs(jobs);
+                    } else {
+                        const filteredJobs = jobs.filter(job => job.category === filter);
+                        displayJobs(filteredJobs);
+                    }
+                });
+            });
+        });
 
-    if (job.company) cardHTML += `<p><strong>Company:</strong> ${job.company}</p>`;
-    if (job.location) cardHTML += `<p><strong>Location:</strong> ${job.location}</p>`;
-    if (job.type) cardHTML += `<p><strong>Type:</strong> ${job.type}</p>`;
-    if (job.salary) cardHTML += `<p><strong>Salary:</strong> ${job.salary}</p>`;
-    if (job.posted) cardHTML += `<p><strong>Posted:</strong> ${job.posted}</p>`;
+        function displayJobs(jobsToDisplay) {
+            const jobsContainer = document.getElementById('job-listings');
+            jobsContainer.innerHTML = '';
+            jobsToDisplay.forEach(job => {
+                const jobCard = document.createElement('div');
+                jobCard.className = 'job-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300';
+                let websiteLink = job.website ? `<p class="mt-2"><a href="${job.website}" target="_blank" class="text-indigo-600 hover:underline">Visit Website</a></p>` : '';
+                jobCard.innerHTML = `
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-bold text-gray-800">${job.title}</h3>
+                            <span class="bg-${getCategoryColor(job.category)}-100 text-${getCategoryColor(job.category)}-800 text-xs px-2 py-1 rounded">
+                                ${getCategoryName(job.category)}
+                            </span>
+                        </div>
+                        <p class="text-gray-600 mb-2">${job.description}</p>
+                        ${websiteLink}
+                    </div>
+                `;
+                jobsContainer.appendChild(jobCard);
+            });
+        }
 
-    cardHTML += `</div>`;
-    jobCard.innerHTML = cardHTML;
-    jobsContainer.appendChild(jobCard);
-  });
-}
+        function getCategoryName(category) {
+            switch (category) {
+                case "competitive_exams": return "Competitive Exams";
+                case "job": return "Job Domain";
+                case "global": return "Global Firms";
+                case "KPSU": return "Kerala Govt. PSUs";
+                default: return "Other";
+            }
+        }
 
-// Helper functions
-function getCategoryName(category) {
-  switch (category) {
-    case "competitive_exams": return "Competitive Exams";
-    case "job": return "Job Domain";
-    case "KPSU": return "Kerala Govt. PSUs";   
-    default: return "Other";
-  }
-}
+        function getCategoryColor(category) {
+            switch (category) {
+                case "competitive_exams": return "blue";
+                case "job": return "green";
+                case "global": return "red";
+                case "KPSU": return "yellow";
+                default: return "gray";
+            }
+        }
 
-function getCategoryColor(category) {
-  switch (category) {
-    case "competitive_exams": return "blue";
-    case "job": return "green";
-    case "KPSU": return "yellow";  
-    default: return "gray";
-  }
-}
-</script>
+        const announcements = [
+            { title: "GATE 2026 Registration", Field: "Mtech", startDate: "2025-08-28", endDate: "2025-09-28", link: "https://goaps.iitg.ac.in" },
+            { title: "CAT 2025", Field: "MBA", startDate: "2025-08-01", endDate: "2025-09-13", link: "https://iimcat.ac.in" },
+            { title: "NMAT 2025", Field: "MBA", startDate: "2025-08-01", endDate: "2025-10-10", link: "https://www.nmat.org" },
+            { title: "SNAP 2025", Field: "MBA", startDate: "2025-08-01", endDate: "2025-11-20", link: "https://snaptest.org" },
+            { title: "XAT 2026", Field: "MBA", startDate: "2025-08-01", endDate: "2025-12-05", link: "https://xatonline.in" },
+            { title: "XGMT 2026", Field: "MBA", startDate: "2025-10-01", endDate: "2025-12-15", link: "https://xatonline.in" },
+            { title: "MICAT-I 2025", Field: "MBA", startDate: "2025-10-01", endDate: "2025-11-15", link: "https://micat.ac.in" },
+            { title: "MICAT-II 2026", Field: "MBA", startDate: "2025-12-01", endDate: "2026-01-10", link: "https://micat.ac.in" },
+            { title: "CMAT 2026", Field: "MBA", startDate: "2025-11-01", endDate: "2025-12-31", link: "https://cmat.nta.nic.in" },
+            { title: "CET 2026", Field: "MBA", startDate: "2026-02-01", endDate: "2026-03-31", link: "https://mhacet.org" },
+            { title: "SRCC GBO 2026", Field: "MBA", startDate: "2025-12-01", endDate: "2026-01-31", link: "https://srcc.edu" }
+        ];
 
+        const today = new Date();
+        const activeBody = document.getElementById("active-body");
+        const closedBody = document.getElementById("closed-body");
 
+        announcements.forEach(ann => {
+            const end = new Date(ann.endDate);
+            const isActive = end >= today;
+            const row = document.createElement("tr");
+            row.className = "border-b text-sm hover:bg-gray-50";
+            row.innerHTML = `
+                <td class="p-2 font-medium text-gray-800">${ann.title}</td>
+                <td class="p-2">${ann.Field}</td>
+                <td class="p-2">${ann.startDate}</td>
+                <td class="p-2">${ann.endDate}</td>
+                <td class="p-2"><a href="${ann.link}" target="_blank" class="text-indigo-600 hover:underline">Visit the Official Website</a></td>
+            `;
+            if (isActive) {
+                activeBody.appendChild(row);
+            } else {
+                closedBody.appendChild(row);
+            }
+        });
+
+        const tabActive = document.getElementById("tab-active");
+        const tabClosed = document.getElementById("tab-closed");
+        const activeDiv = document.getElementById("active-announcements");
+        const closedDiv = document.getElementById("closed-announcements");
+
+        tabActive.addEventListener("click", () => {
+            activeDiv.classList.remove("hidden");
+            closedDiv.classList.add("hidden");
+            tabActive.classList.add("text-indigo-600", "border-b-2", "border-indigo-600");
+            tabClosed.classList.remove("text-indigo-600", "border-b-2", "border-indigo-600");
+        });
+
+        tabClosed.addEventListener("click", () => {
+            closedDiv.classList.remove("hidden");
+            activeDiv.classList.add("hidden");
+            tabClosed.classList.add("text-indigo-600", "border-b-2", "border-indigo-600");
+            tabActive.classList.remove("text-indigo-600", "border-b-2", "border-indigo-600");
+        });
+
+        // Accordion function for the new Resources box
+        function toggleResources() {
+            const content = document.getElementById('resources-content');
+            const icon = document.getElementById('accordion-icon');
+            content.classList.toggle('open');
+            icon.classList.toggle('fa-chevron-down');
+            icon.classList.toggle('fa-chevron-up');
+        }
+    </script>
 </body>
 </html>
